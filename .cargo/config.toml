@@ -66,8 +66,7 @@ strip = true
 [profile.lto]
 inherits = "release"
 #rustflags = ["-Cprefer-dynamic=n",
-#"-Zvirtual-function-elimination","-Clto"
-]
+#"-Zvirtual-function-elimination","-Clto"]
 lto = true
 panic = "abort"
 debug = false
