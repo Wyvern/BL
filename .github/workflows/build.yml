@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "stable" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "stable" ]
 
 env:
   CARGO_TERM_COLOR: always
@@ -18,10 +18,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Rust Update
-      run: |
-        rustup default nightly
-        rustup update
-        rustup component add rust-src clippy
+      run: rustup update
         
     - name: Rust Cache
       uses: Swatinem/rust-cache@v2.2.1
@@ -29,27 +26,24 @@ jobs:
     - name: Build Release
       run: |
         cargo update
-        #time cargo build --release
-        #time cargo lto
-        time cargo src x86_64-unknown-linux-gnu
-        #ls -hl target/*/BL
-        ls -hl target/*/*/BL
+        time cargo build --release
+        time cargo lto
+        ls -hl target/*/BL
         lscpu
         free -m
         
     - name: Run tests
-      run: cargo version
-      
+      run: cargo test --release
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: target/x86_64-unknown-linux-gnu/src/BL
+        file: target/lto/BL 
         asset_name: Linux
-        tag: Nightly
+        tag: Stable
         overwrite: true
         body: "Ubuntu Linux binary executable."
-          
+      
   macOS:
     name: Building on macOS. 
     runs-on: macos-latest
@@ -58,36 +52,30 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Rust Update
-      run: |
-        rustup default nightly
-        rustup update
-        rustup component add rust-src clippy
-        
+      run: rustup update
+      
     - name: Rust Cache
       uses: Swatinem/rust-cache@v2.2.1
-    
-    - name: Build Release
+      
+    - name: Build release
       run: |
         cargo update
-        #time cargo build --release
-        #time cargo lto
-        time cargo src x86_64-apple-darwin
-        #ls -hl target/*/BL
-        ls -hl target/*/*/BL
+        time cargo build --release
+        time cargo lto
+        ls -hl target/*/BL
         sw_vers
         hostinfo
         sysctl -a | grep brand
         
     - name: Run tests
-      run: cargo version
-      
+      run: cargo test --release
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: target/x86_64-apple-darwin/src/BL
+        file: target/lto/BL
         asset_name: macOS
-        tag: Nightly
+        tag: Stable
         overwrite: true
         body: "macOS binary executable."
       
@@ -99,33 +87,25 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Rust Update
-      run: |
-        rustup default nightly
-        rustup update
-        rustup component add rust-src clippy
+      run: rustup update
         
     - name: Rust Cache
       uses: Swatinem/rust-cache@v2.2.1
       
     - name: Build release
-      run: |
-        cargo update
-        #cargo build --release
-        #cargo lto
-        cargo src x86_64-pc-windows-msvc
-        #dir target/*/*.exe
-        dir target/*/*/*.exe
+      run: |   
+        cargo build --release
+        cargo lto
+        dir target/*/*.exe
         systeminfo
-        
     - name: Run tests
-      run: cargo version
-      
+      run: cargo test --release
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: target/x86_64-pc-windows-msvc/src/BL.exe
+        file: target/lto/BL.exe
         asset_name: Windows.exe
-        tag: Nightly
+        tag: Stable
         overwrite: true
         body: "Windows binary executable."
