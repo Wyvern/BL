@@ -22,7 +22,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic", "-Cdebug_assertions"]
+#rustflags = ["-Cprefer-dynamic", "-Cdebug_assertions", "-Zdwarf-version=4"]
 rpath = true
 [profile.dev.package."*"]
 inherits = "release"
@@ -57,7 +57,7 @@ inherits = "release"
 [profile.release.package."*"]
 inherits = "release"
 [profile.release]
-rustflags = ["-Cprefer-dynamic",]
+#rustflags = ["-Cprefer-dynamic",]
 rpath = true
 strip = true
 #codegen-units = 1
@@ -65,7 +65,7 @@ strip = true
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Cprefer-dynamic=n",
+#rustflags = ["-Cprefer-dynamic=n",
 #"-Zvirtual-function-elimination","-Clto"
 ]
 lto = true
