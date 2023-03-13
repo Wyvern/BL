@@ -33,7 +33,8 @@ jobs:
         free -m
         
     - name: Run tests
-      run: cargo test --release
+      run: cargo test --profile lto
+      
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
       with:
@@ -68,7 +69,8 @@ jobs:
         sysctl -a | grep brand
         
     - name: Run tests
-      run: cargo test --release
+      run: cargo test --profile lto
+      
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
       with:
@@ -98,8 +100,10 @@ jobs:
         cargo lto
         dir target/*/*.exe
         systeminfo
+        
     - name: Run tests
-      run: cargo test --release
+      run: cargo test --profile lto
+      
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
       with:
