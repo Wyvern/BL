@@ -26,7 +26,7 @@ jobs:
     - name: Build Release
       run: |
         cargo update
-        time cargo build --release
+        #time cargo br
         time cargo lto
         ls -hl target/*/BL
         lscpu
@@ -60,7 +60,7 @@ jobs:
     - name: Build release
       run: |
         cargo update
-        time cargo build --release
+        #time cargo br
         time cargo lto
         ls -hl target/*/BL
         sw_vers
@@ -94,7 +94,7 @@ jobs:
       
     - name: Build release
       run: |   
-        cargo build --release
+        #cargo br
         cargo lto
         dir target/*/*.exe
         systeminfo
