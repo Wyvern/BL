@@ -22,7 +22,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic", "-Cdebug_assertions", "-Zdwarf-version=4"]
+rustflags = ["-Cprefer-dynamic", "-Cdebug_assertions"]
 rpath = true
 [profile.dev.package."*"]
 inherits = "release"
@@ -57,7 +57,7 @@ inherits = "release"
 [profile.release.package."*"]
 inherits = "release"
 [profile.release]
-rustflags = ["-Cprefer-dynamic", "-Zcombine-cgu"]
+rustflags = ["-Cprefer-dynamic",]
 rpath = true
 strip = true
 #codegen-units = 1
@@ -145,32 +145,6 @@ rustflags = [
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
     "-Clink-args=-fno-ident -fno-exceptions -fno-backtrace -gz -undefined -dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
-    "-Ztune-cpu=native",
-    "-Zno-profiler-runtime",
-    "-Zthinlto",
-    "-Zplt",
-    "-Zdylib-lto",
-    "-Zno-generate-arange-section",
-    "-Zdep-info-omit-d-target",
-    "-Zpolonius",
-    "-Ztrim-diagnostic-paths",
-    "-Zoom=abort",
-    "-Zthir-unsafeck",
-    "-Zshare-generics",
-    "-Zgcc-ld=lld",
-    "-Zmerge-functions=trampolines",
-    #"-Zpolymorphize",
-    "-Zinline-mir",
-    "-Zinline-in-all-cgus",
-    "-Zmir-opt-level=4",
-    "-Zpacked-bundled-libs",
-    "-Zteach",
-    "-Zmaximal-hir-to-mir-coverage",
-    "-Zno-jump-tables",
-    "-Zterminal-urls",
-    #"-Zthreads=0",
-    #"-Ztrait-solver=chalk|next",
-
     "-Aunused",
     "-Anonstandard_style",
     "-Frust_2018_idioms",
@@ -181,50 +155,6 @@ rustflags = [
 all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
-[target.x86_64-apple-darwin]
-[target.x86_64-pc-windows-msvc]
-rustflags = [
-    "-Ctarget-feature=-crt-static",
-    "-Ctarget-cpu=native",
-    "-Csymbol-mangling-version=v0",
-    "-Coverflow-checks=no",
-    "-Copt-level=s",
-    "-Cno-redzone",
-    #"-Clinker-flavor=lld-link",
-
-    "-Cllvm-args=--enable-name-compression --debugify-quiet",
-    "-Clink-args=-fno-ident -fno-backtrace -gz -undefined -dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
-
-    "-Ztune-cpu=native",
-    "-Zno-profiler-runtime",
-    "-Zthinlto",
-    "-Zplt",
-    "-Zdylib-lto",
-    "-Zno-generate-arange-section",
-    "-Zdep-info-omit-d-target",
-    "-Zpolonius",
-    "-Ztrim-diagnostic-paths",
-    "-Zoom=abort",
-    "-Zthir-unsafeck",
-    "-Zshare-generics",
-    "-Zmerge-functions=trampolines",
-    #"-Zpolymorphize",
-    "-Zinline-mir",
-    "-Zinline-in-all-cgus",
-    "-Zmir-opt-level=4",
-    "-Zpacked-bundled-libs",
-    "-Zteach",
-    "-Zmaximal-hir-to-mir-coverage",
-    "-Zno-jump-tables",
-    "-Zterminal-urls",
-    #"-Zthreads=0",
-    #"-Ztrait-solver=chalk|next",
-
-    "-Aunused",
-    "-Anonstandard_style",
-    "-Frust_2018_idioms",
-    "-Frust_2018_compatibility",
-]
 [target.debug]
 
 [target.release]
