@@ -32,8 +32,8 @@ jobs:
         lscpu
         free -m
         
-    - name: Run tests
-      run: cargo test --profile lto
+    - name: Rust Versions
+      run: rustup -V; cargo -Vv; rustc -Vv
       
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
@@ -68,8 +68,8 @@ jobs:
         hostinfo
         sysctl -a | grep brand
         
-    - name: Run tests
-      run: cargo test --profile lto
+    - name: Rust Versions
+      run: rustup -V; cargo -Vv; rustc -Vv
       
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
@@ -101,8 +101,8 @@ jobs:
         dir target/*/*.exe
         systeminfo
         
-    - name: Run tests
-      run: cargo test --profile lto
+    - name: Rust Versions
+      run: rustup -V; cargo -Vv; rustc -Vv
       
     - name: Upload files to a GitHub release
       uses: svenstaro/upload-release-action@2.5.0
